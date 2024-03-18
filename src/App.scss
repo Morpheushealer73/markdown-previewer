@@ -1,0 +1,80 @@
+.App {
+  text-align: center;
+}
+
+.App-body {
+  background-color: #37cbe6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.editorContainer {
+  min-height: 100px;
+}
+
+.toolBar {
+  background-color: #1cbdda;
+  color: #282c34;
+  font-family: fantasy;
+}
+textarea {
+  resize: vertical;
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  box-sizing: border-box;
+  background-color: #77e8fc;
+
+  border: none;
+  border-color: transparent; /* Removes the border */
+  outline: none; /* Removes the outline */
+  box-shadow: none; /* Removes the glow effect */
+
+  font-size: 15px !important;
+  font-family: monospace !important;
+}
+.faClipBoard{
+  position: relative;
+  align-items: center;
+  padding-inline: 5px;
+  height: 18px;
+}
+
+.editorText{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.faMaximize{
+  margin-inline-end: 5px;
+  height: 16px;
+  padding: 5px;
+}
+
+.faMaximize:hover {
+  cursor: pointer;
+  color: #00d9ff;
+}
+
+.previewercontainer{
+  width: 55vw !important;
+  overflow: auto; /* Hide the overflow content */
+  max-width: 100%; /* Max width of the container */
+  max-height: 100%; /* Max height of the container */
+  text-align: left;
+  
+  background-color: #77e8fc;
+
+  
+  .previewer{
+    color: black;
+  }
+}
+
+Markdown{
+  max-height: 100%;
+}
