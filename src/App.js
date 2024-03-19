@@ -2,7 +2,6 @@
 import './App.scss';
 import { useState } from 'react';
 import { marked } from 'marked';
-import Markdown from "marked-react";
 import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
@@ -55,41 +54,58 @@ And here. | Okay. | I think we get it.
 ![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
 `
 
+const useToggleVisibility = (initialVisibility = true) => {
+  const [isVisible, setIsVisible] = useState(initialVisibility);
 
+  const toggle = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return [isVisible, toggle];
+};
 
 
 function App() {
   const [markdownText, setMarkdownText] = useState(defaultMarkdownText);
+  const [editorVisible, setEditorVisible] = useToggleVisibility(true);
+  const [previewerVisible, setPreviewerVisible] = useToggleVisibility(true);
 
   marked.setOptions({
     breaks: true
   })
+
+  const editorStyle = {
+    minHeight: previewerVisible ? '200px' : '100vh'
+  };
   return (
     <div className="App">
       <body className='App-body p-3'>
-      <Container className="editorContainer w-50 container-fluid shadow-sm rounded p-0 border border-dark rounded-0">
+      {editorVisible && (
+        <Container style={editorStyle} className="editorContainer w-50 container-fluid shadow-sm rounded p-0 border border-dark rounded-0">
         <div className='toolBar'>
           <div className="border-bottom border-dark d-flex justify-content-between">
             <div className='editorText'>
               <FontAwesomeIcon icon={faClipboard} className='faClipBoard pt-2'/>
               Editor
             </div>
-              <a><FontAwesomeIcon icon={faMaximize} className='faMaximize'/></a>
+              <a href="#!" onClick={setPreviewerVisible}><FontAwesomeIcon icon={faMaximize} className='faMaximize'/></a>
           </div>
         </div>
-        <textarea id="editor" value={markdownText} onChange={(event) => setMarkdownText(event.target.value)}>
+        <textarea style={editorStyle} id="editor" value={markdownText} onChange={(event) => setMarkdownText(event.target.value)}>
 
         </textarea>
       </Container>
+      )}
 
-      <Container className="editorContainer previewercontainer container-fluid shadow-sm rounded mt-5 p-0 border border-dark rounded-0">
+      {previewerVisible && (
+        <Container className="previewercontainer container-fluid shadow-sm rounded mt-5 p-0 border border-dark rounded-0">
         <div className='toolBar'>
           <div className="border-bottom border-dark d-flex justify-content-between">
             <div className='editorText'>
               <FontAwesomeIcon icon={faClipboard} className='faClipBoard pt-2'/>
               Previewer
             </div>
-              <a href='_self'><FontAwesomeIcon icon={faMaximize} className='faMaximize'/></a>
+              <a href="#!" onClick={setEditorVisible}><FontAwesomeIcon icon={faMaximize} className='faMaximize'/></a>
           </div>
         </div>
         <div id="preview" className='previewer' dangerouslySetInnerHTML={{
@@ -98,6 +114,7 @@ function App() {
           
         </div>
       </Container>
+      )}
       </body>
     </div>
   );
