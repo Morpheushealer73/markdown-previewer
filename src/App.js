@@ -6,6 +6,7 @@ import Container from 'react-bootstrap/Container';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClipboard } from '@fortawesome/free-solid-svg-icons';
 import { faMaximize } from '@fortawesome/free-solid-svg-icons';
+import { faMinimize } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 //default Markdown text input from FCC
@@ -78,44 +79,52 @@ function App() {
     minHeight: previewerVisible ? '200px' : '100vh'
   };
   return (
-    <div className="App">
-      <body className='App-body p-3'>
-      {editorVisible && (
-        <Container style={editorStyle} className="editorContainer w-50 container-fluid shadow-sm rounded p-0 border border-dark rounded-0">
-        <div className='toolBar'>
-          <div className="border-bottom border-dark d-flex justify-content-between">
-            <div className='editorText'>
-              <FontAwesomeIcon icon={faClipboard} className='faClipBoard pt-2'/>
-              Editor
+    <div className='App'>
+      <div className="App-body p-3">
+        {editorVisible && (
+          <Container style={editorStyle} className="editorContainer w-50 container-fluid shadow-sm rounded p-0 border border-dark rounded-0">
+            <div className='toolBar'>
+              <div className="border-bottom border-dark d-flex justify-content-between">
+                <div className='editorText'>
+                  <FontAwesomeIcon icon={faClipboard} className='faClipBoard pt-2'/>
+                  <label htmlFor="editor">
+                    Editor
+                  </label>
+                </div>
+                  <a href="#!" onClick={setPreviewerVisible} aria-label="Click me">
+                  {previewerVisible ? <FontAwesomeIcon icon={faMaximize} className='faMaximize'/>:
+                                    <FontAwesomeIcon icon={faMinimize} className='faMinimize'/>}
+                  </a>
+              </div>
             </div>
-              <a href="#!" onClick={setPreviewerVisible}><FontAwesomeIcon icon={faMaximize} className='faMaximize'/></a>
-          </div>
-        </div>
-        <textarea style={editorStyle} id="editor" value={markdownText} onChange={(event) => setMarkdownText(event.target.value)}>
+            <textarea style={editorStyle} id="editor" value={markdownText} onChange={(event) => setMarkdownText(event.target.value)}>
 
-        </textarea>
-      </Container>
-      )}
+            </textarea>
+          </Container>
+          )}
 
-      {previewerVisible && (
-        <Container className="previewercontainer container-fluid shadow-sm rounded mt-5 p-0 border border-dark rounded-0">
-        <div className='toolBar'>
-          <div className="border-bottom border-dark d-flex justify-content-between">
-            <div className='editorText'>
-              <FontAwesomeIcon icon={faClipboard} className='faClipBoard pt-2'/>
-              Previewer
+          {previewerVisible && (
+            <Container className="previewercontainer container-fluid shadow-sm rounded mt-5 p-0 border border-dark rounded-0">
+            <div className='toolBar'>
+              <div className="border-bottom border-dark d-flex justify-content-between">
+                <div className='editorText'>
+                  <FontAwesomeIcon icon={faClipboard} className='faClipBoard pt-2'/>
+                  Previewer
+                </div>
+                  <a href="#!" onClick={setEditorVisible} aria-label="Click me">
+                    {editorVisible ? <FontAwesomeIcon icon={faMaximize} className='faMaximize'/>:
+                                    <FontAwesomeIcon icon={faMinimize} className='faMinimize'/>}
+                  </a>
+              </div>
             </div>
-              <a href="#!" onClick={setEditorVisible}><FontAwesomeIcon icon={faMaximize} className='faMaximize'/></a>
-          </div>
-        </div>
-        <div id="preview" className='previewer' dangerouslySetInnerHTML={{
-          __html:marked(markdownText)
-        }}>
-          
-        </div>
-      </Container>
-      )}
-      </body>
+            <div id="preview" className='previewer' dangerouslySetInnerHTML={{
+              __html:marked(markdownText)
+            }}>
+              
+            </div>
+          </Container>
+        )};
+      </div>
     </div>
   );
 }

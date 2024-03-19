@@ -49,14 +49,14 @@ textarea {
   justify-content: flex-end;
 }
 
-.faMaximize{
+.faMaximize, .faMinimize{
   margin-inline-end: 5px;
   height: 16px;
   padding: 5px;
   color: #282c34;
 }
 
-.faMaximize:hover {
+.faMaximize:hover, .faMinimize:hover {
   cursor: pointer;
   color: #00d9ff;
 }
